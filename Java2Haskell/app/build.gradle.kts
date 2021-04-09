@@ -21,6 +21,9 @@ tasks.withType<JavaCompile>().configureEach {
     options.setIncremental(false)
 }
 
+val run: JavaExec by tasks
+run.standardInput = System.`in`
+
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()

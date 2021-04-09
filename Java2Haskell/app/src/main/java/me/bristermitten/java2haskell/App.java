@@ -10,11 +10,13 @@ public class App {
     public static void main(String[] args) throws IOException {
         final var code = """
                 import Control.Monad
-                main = replicateM_ 5 (putStrLn "Hello World")
+                main = do
+                    i <- readLn :: IO Int
+                    replicateM_ i (putStrLn ((++)"Brister ".("Mitten"++)$""))
                 """;
 
         var output = CodeExecutor.execute(code);
 
-        System.out.println(output);
+        System.out.println("Code produced output: " + output);
     }
 }
