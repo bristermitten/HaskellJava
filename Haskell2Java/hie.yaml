@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "Interop:lib"
+
+    - path: "./app/Main.hs"
+      component: "Interop:exe:Interop-exe"
+
+    - path: "./app/Paths_Interop.hs"
+      component: "Interop:exe:Interop-exe"
+
+    - path: "./test"
+      component: "Interop:test:Interop-test"
