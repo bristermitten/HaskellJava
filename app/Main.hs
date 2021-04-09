@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import InteropLib
 
 main :: IO ()
 main = do

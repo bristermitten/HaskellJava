@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Lib (createCode, compileCode) where
+module InteropLib (createCode, compileCode) where
 
 import qualified Data.Text as T
 import GHC.IO.Handle
