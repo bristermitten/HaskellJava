@@ -11,18 +11,27 @@ plugins {
     application
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(16))
+    }
+}
+
+tasks.withType<JavaCompile>().configureEach { 
+    options.setIncremental(false)
+}
+
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()
 }
 
 dependencies {
-
     // This dependency is used by the application.
     implementation("com.google.guava:guava:29.0-jre")
 }
 
 application {
     // Define the main class for the application.
-    mainClass.set("Java2Haskell.App")
+    mainClass.set("me.bristermitten.java2haskell.App")
 }

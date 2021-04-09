@@ -3,12 +3,18 @@
  */
 package me.bristermitten.java2haskell;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.io.IOException;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+public class App {
+
+    public static void main(String[] args) throws IOException {
+        final var code = """
+                import Control.Monad
+                main = replicateM_ 5 (putStrLn "Hello World")
+                """;
+
+        var output = CodeExecutor.execute(code);
+
+        System.out.println(output);
     }
 }
