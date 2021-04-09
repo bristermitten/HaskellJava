@@ -12,11 +12,9 @@ public class App {
                 import Control.Monad
                 main = do
                     i <- readLn :: IO Int
-                    replicateM_ i (putStrLn ((++)"Brister ".("Mitten"++)$""))
+                    replicateM_ i (putStrLn "Hello World")
                 """;
 
-        var output = CodeExecutor.execute(code);
-
-        System.out.println("Code produced output: " + output);
+        CodeExecutor.execute(code);
     }
 }

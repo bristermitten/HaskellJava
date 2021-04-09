@@ -15,18 +15,14 @@ public class CodeExecutor {
             writer.write(haskellCode);
         }
 
-        var compileProcess = new ProcessBuilder("ghc", "code.hs").directory(workDir).start();
+        var compileProcess = new ProcessBuilder("ghc", "code.hs").directory(workDir).inheritIO().redirectError(Redirect.PIPE).start();
         var errors = new String(compileProcess.getErrorStream().readAllBytes());
 
-        if(!errors.isBlank()) {
+        if (!errors.isBlank()) {
             return "Errors Compiling: " + errors;
         }
-        var execProcess = new ProcessBuilder("./code").directory(workDir).inheritIO().start();
 
-        try (var output = execProcess.getInputStream()) {
-            return new String(output.readAllBytes());
-        } finally {
-            haskellFile.delete();
-        }
+        new ProcessBuilder("./code").directory(workDir).inheritIO().start();
+        return "";
     }
 }

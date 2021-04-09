@@ -22,6 +22,7 @@ compileCode code = do
   _ <- createProcess (proc "javac" ["Library.java", "Interop.java"]) {cwd = Just "../work/"} -- Execute `javac Library.java Interop.java` in work directory
   (_, maybeOut, _, _) <- createProcess (proc "java" ["Interop"]) {cwd = Just "../work/", std_out = CreatePipe} -- Execute our Interop class
 
+  
   case maybeOut of
     Just output -> hGetContents output
     Nothing -> return "Program produced no output."
