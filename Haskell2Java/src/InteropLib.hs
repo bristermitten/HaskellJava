@@ -17,15 +17,12 @@ baseCode =
 
 createCode body = T.unpack $ T.replace "[code]" (T.pack body) baseCode -- We do a little string processing
 
+compileCode :: String -> IO String
 compileCode code = do
   _ <- writeFile "../work/Interop.java" code -- create the temporary java source file
-  _ <- createProcess (proc "javac" ["Library.java", "Interop.java"]) {cwd = Just "../work/"} -- Execute `javac Library.java Interop.java` in work directory
+  (_, _, compileErrorMaybe, _) <- createProcess (proc "javac" ["Library.java", "Interop.java"]) {cwd = Just "../work/"} -- Execute `javac Library.java Interop.java` in work directory
   (_, maybeOut, _, _) <- createProcess (proc "java" ["Interop"]) {cwd = Just "../work/", std_out = CreatePipe} -- Execute our Interop class
-
-  
-  case maybeOut of
-    Just output -> hGetContents output
-    Nothing -> return "Program produced no output."
-  
-  
-  
+  case (compileErrorMaybe, maybeOut) of
+    (Just err, _) -> hGetContents err
+    (Nothing, Just out) -> hGetContents out
+    _ -> return "Program ran without output."
